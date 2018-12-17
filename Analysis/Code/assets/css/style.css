@@ -45,7 +45,7 @@ body {
   font: 12px sans-serif;
   color: white;
   text-align: center;
-  background: #3a1aaf;
+  background: black;
   border: 0;
   border-radius: 10px;
 }
@@ -53,6 +53,6 @@ body {
 .axisText {
   font-family: sans-serif;
   font-weight: bold;
-  fill: #6c1aaf;
+  fill: black;
   text-anchor: middle;
 }
