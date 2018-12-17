@@ -1,3 +1,4 @@
+
 //Step 1 Create chart parameters and pull data
 var svgWidth = 960;
 var svgHeight = 500;
@@ -26,10 +27,10 @@ var chartGroup = svg.append("g")
   .attr("transform", `translate(${margin.left}, ${margin.top})`);
 
 // Append a div to the body to create tooltips, assign it a class
-d3.select(".chart")
-    .append("div")
-    .attr("class", "tooltip")
-    .style("opacity", 0);
+// d3.select(".chart")
+//     .append("div")
+//     .attr("class", "tooltip")
+//     .style("opacity", 0);
 
 // Import Data from .csv file
 d3.csv("assets/data/data.csv")
@@ -74,44 +75,42 @@ d3.csv("assets/data/data.csv")
     .data(data)
     .enter()
 
-    circlesGroup
-    .append("circle")
+    var Circles = circlesGroup.append("circle")
     .attr("class", "state")
     .attr("cx", d => xLinearScale(d.poverty))
     .attr("cy", d => yLinearScale(d.healthcare))
     .attr("r", "10")
     .attr("fill", "lightblue")
     .attr("opacity", "1")
-    .style("text-anchor", "center");
+    .style("text-anchor", "end");
 
-    circlesGroup
-    .append("text")
+    var CircleText = circlesGroup.append("text")
     .attr('x', d => xLinearScale(d.poverty))
-    .attr('y', d => yLinearScale(d.healthcare))
+    .attr('y', d => yLinearScale(d.healthcare)+5)
+    .attr("class", "circleText")
     .text(function(d){
       return d.abbr;
-    })
-    .attr("class", "circleText");
+    });
    
-    // Step 6: Initialize tool tip
+ // Step 6: Initialize tool tip
     // ==============================
     var toolTip = d3.tip()
       .attr("class", "tooltip")
       .offset([80, -50])
       .html(function(d) {
-      var state = d.abbr;
-      var poverty = +d.poverty;
-      var healthcare = +d.healthcare;
-        return (d.state + "<br> In Poverty: " + poverty + "% <br> Lacks Healthcare: " + healthcare + "%");
+      // var state = d.state;
+      // var poverty = +d.poverty;
+      // var healthcare = +d.healthcare;
+      return (`${d.state}<hr>In Poverty: ${d.poverty}<br>Lacks Healthcare: ${d.healthcare}`);
 
       });
-    // Step 7: Create tooltip in the chart
+ // Step 7: Create tooltip in the chart
     // ==============================
     chartGroup.call(toolTip);
 
-    // Step 8: Create event listeners to display and hide the tooltip
+ // Step 8: Create event listeners to display and hide the tooltip
     // ==============================
-    chartGroup.on("mouseover", function(data) {
+    CircleText.on("mouseover", function(data) {
       toolTip.show(data,this);
     })
       // onmouseout event
@@ -119,7 +118,7 @@ d3.csv("assets/data/data.csv")
         toolTip.hide(data);
       });
 
-    // Create axes labels
+// Create axes labels
     chartGroup.append("text")
       .attr("transform", "rotate(-90)")
       .attr("y", 0 - margin.left +30)
@@ -134,4 +133,6 @@ d3.csv("assets/data/data.csv")
       .text("In Poverty %");
   });
   
+
+
 
