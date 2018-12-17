@@ -56,3 +56,8 @@ body {
   fill: black;
   text-anchor: middle;
 }
+.circleText {
+  text-align: center;
+  color: white;
+  border:0;
+}
